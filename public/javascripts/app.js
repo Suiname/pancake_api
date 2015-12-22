@@ -105,7 +105,9 @@ app.RecipeView = Backbone.View.extend({
       CookingInstructions: $('#p-instructions').val(),
       Rating: $('#p-rating').val()
     }
+    if (confirm("Are you sure you want to add this recipe?")) {
     this.collection.create(recipe);
+    }
   }
 
 });
