@@ -108,7 +108,15 @@ app.RecipeView = Backbone.View.extend({
     }
     if (confirm("Are you sure you want to add this recipe?")) {
     this.collection.create(recipe);
+    this.clearText();
     }
+  },
+  clearText: function(){
+    var inputs = this.$el.children('input');
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].value = '';
+    }
+    this.$el.children('button').hide();
   }
 
 });
