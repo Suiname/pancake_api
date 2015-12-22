@@ -71,8 +71,49 @@ app.ModelView = Backbone.View.extend({
   }
 });
 
+app.RecipeView = Backbone.View.extend({
+  el: $('#recipe-form'),
+  initialize: function(){
+    $('#formButton').hide();
+  },
+  events: {
+    'click button': 'addRecipe',
+    'blur input': 'checkInput'
+  },
+  checkInput: function(){
+    var inputs = this.$el.children('input');
+    console.log(inputs.length);
+    var validInput = true;
+    for (var i = 0; i < inputs.length; i++) {
+      if (inputs[i].value.length == 0){
+        validInput = false;
+      }
+    }
+    if (validInput) {
+      this.$el.children('button').show();
+      this.$el.children('.error').html('');
+    } else {
+      this.$el.children('button').hide();
+      this.$el.children('.error').html('Please fill in all fields');
+    }
+  },
+  addRecipe: function(){
+    var recipe = {
+      Name: $('#p-name').val(),
+      IngredientList: $('#p-ingredient').val(),
+      Preparations: $('#p-preparations').val(),
+      CookingInstructions: $('#p-instructions').val(),
+      Rating: $('#p-rating').val()
+    }
+    this.collection.create(recipe);
+  }
+
+});
+
 $(document).ready(function() {
   console.log('here we go! pancakes, pancakes everywhere!');
   active.collection = new app.Collection();
-
+  active.createRecipeView = new app.RecipeView({
+    collection: active.collection
+  });
 });
