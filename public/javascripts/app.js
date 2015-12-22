@@ -45,6 +45,7 @@ app.CollectionView = Backbone.View.extend({
   render: function(){
     console.log("CollectionView is rendered");
     var models = this.collection.models;
+    this.$el.empty();
     for (var m in models) {
       new app.ModelView({
         model: models[m],
